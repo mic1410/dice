@@ -1,10 +1,13 @@
 package com.example.dice.ui
 
 import com.example.domain.RolledNumber
-import java.time.LocalDateTime
+import java.text.SimpleDateFormat
 
-class UINumber(val number: String, val date: String)
+data class UINumber(val number: String, val date: String)
 
-fun RolledNumber.toPresentationModel(): UINumber = UINumber(
-    "222", "13-09-2019"
-)
+fun RolledNumber.toPresentationModel(): UINumber {
+    val sdf = SimpleDateFormat("HH:mm:ss, yyyy MMM dd")
+    val format = sdf.format(date.time)
+
+    return UINumber("$number ", format)
+}

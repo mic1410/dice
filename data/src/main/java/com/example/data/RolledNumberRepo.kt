@@ -1,12 +1,13 @@
 package com.example.data
 
 import com.example.domain.RolledNumber
-import java.time.LocalDateTime
 
-class RolledNumberRepo {
+class RolledNumberRepo(private val persistenceLib: SomePersistenceLib) {
     fun requestNewNumber(): List<RolledNumber> {
-        var numbersList: List<RolledNumber> = emptyList()
-        numbersList += RolledNumber(111, LocalDateTime.now())
-        return numbersList
+        return persistenceLib.getPersistedNumbers()
+    }
+
+    interface SomePersistenceLib {
+        fun getPersistedNumbers(): List<RolledNumber>
     }
 }

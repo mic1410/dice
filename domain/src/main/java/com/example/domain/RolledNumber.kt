@@ -1,7 +1,5 @@
 package com.example.domain
 
-import java.time.LocalDateTime
+import java.util.*
 
-class RolledNumber (val number: Int, val date: LocalDateTime){
-
-}
+data class RolledNumber(val number: Int, val date: Calendar)
