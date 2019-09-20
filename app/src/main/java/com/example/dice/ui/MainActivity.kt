@@ -27,4 +27,9 @@ class MainActivity : AppCompatActivity(), Presenter.View {
     override fun renderNumbers(numbers: List<UINumber>) {
         numbersAdapter.items = numbers
     }
+
+    override fun onDestroy() {
+        presenter.onDestroy()
+        super.onDestroy()
+    }
 }

@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class Presenter(
-    private var view: View,
+    private var view: View?,
     private val requestNewNumber: RequestNewNumber
 ) {
     interface View {
@@ -17,6 +17,13 @@ class Presenter(
 
     fun buttonClicked() = GlobalScope.launch(Dispatchers.Main) {
         val numbers = withContext(Dispatchers.IO) { requestNewNumber() }
-        view.renderNumbers(numbers.map(RolledNumber::toPresentationModel))
+        view?.renderNumbers(numbers.map(RolledNumber::toPresentationModel))
+    }
+
+    /**
+     * This avoids crashes caused by attempts to update UI when Activity is already gone
+     */
+    fun onDestroy() {
+        view = null
     }
 }
